@@ -6,3 +6,4 @@
 // npm i @types/mongoose
 // npm i @types/morgan
 // npm i @types/node
+// npm i @types/validator

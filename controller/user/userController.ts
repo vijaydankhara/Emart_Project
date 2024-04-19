@@ -1,7 +1,7 @@
 import { Request,Response } from "express";
 import bcrypt from "bcrypt" 
 // import Jwt  from "jsonwebtoken";
-import UserModel from "../../schemas/userSchema";
+import UserModel from "../../schemas/user/userSchema";
 import { IUser } from "../../models/IUser";
 
 import {ThrowError} from "../../utils/ErrorUtils"
@@ -11,7 +11,7 @@ import {ThrowError} from "../../utils/ErrorUtils"
 
 /**
  * @usage : Register a User,
- * @url : 
+ * @url :  http://localhost:1999/api/admin/register-admin
  * @param : firstName,lastName,gender,email,password,mobileNo
  * @method : POST
  * @access : PUBLIC 

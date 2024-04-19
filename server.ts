@@ -2,18 +2,20 @@ import express from 'express';
 import dotenv from 'dotenv';
 const server = express();
 import mongoose from 'mongoose';
-// import adminsRoutes from './routes/admin/index.routes';
-import userRouter from './routes/userRouter';
+import adminRouter from './routes/admin/adminRouter';
+import userRouter from './routes/user/userRouter';
 dotenv.config();
 const port : Number = Number(process.env.PORT);
 const dbURL : string = process.env.MONGO_DB_URL as string ;
 
 server.use(express.json());
 
-// /*----------------------------|| Admin Route ||-----------------------------------*/
-// server.use('/api/admin', adminsRoutes)
+// ------------------------- ADMIN API ---------------------------------------
+server.use('/api/admin',adminRouter);
 
-// /*----------------------------|| user Route ||-----------------------------------*/
+
+
+// ------------------------- USER API ---------------------------------------
 server.use('/api/users',userRouter);
 
 
