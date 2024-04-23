@@ -12,11 +12,11 @@ const adminSchema = new mongoose.Schema<IUser>({
     isdelete: {type: Boolean,  default: false},
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
+
 },
-// {
-//     versionKey: true,
-//     timestamps: true
-// }
+{
+    versionKey: false
+}
 );
 
 const AdminModel = mongoose.model<IUser>('admin', adminSchema);
