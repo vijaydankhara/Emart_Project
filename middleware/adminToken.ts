@@ -13,9 +13,9 @@ export const tokenAdmin = async (req: Request,res: Response,next: NextFunction) 
     try {
         let secretKey: any = process.env.SECRETE_KEY 
             let token: any = req.headers['authorization']?.split(" ")[1];
-                let {userId} : any = jwt.verify(token, secretKey);
-                let user = await AdminModel.findOne({_id: userId, isAdmin: true});
-                req.admin = user;
+                let {adminId} : any = jwt.verify(token, secretKey);
+                let admin = await AdminModel.findOne({_id: adminId, isAdmin: true});
+                req.admin = admin;
                 if(req.admin){
                     next();
                 }
