@@ -17,7 +17,7 @@ await adminController.registerAdmin(request,response);
 
 /**
  * @usage  : Login Admin
- * @url    : 
+ * @url    : http://localhost:1999/api/admin/login-admin
  * @params : email , password
  * @method : POST
  * @access : PUBLIC
