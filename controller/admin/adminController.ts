@@ -1,4 +1,4 @@
-import { Request, Response, response } from "express";
+import { Request, Response, response} from "express";
 import bcrypt from "bcrypt";
 import Jwt from "jsonwebtoken";
 import AdminModel from "../../schemas/admin/adminSchema";
@@ -56,56 +56,28 @@ export const registerAdmin = async (request: Request, response: Response) => {
  * @access : PUBLIC
  */
 
-
-export const loginAdmin = async (req: Request,res: Response) => {
-  try{
-      const {email, password} = req.body;
-      let admin = await AdminModel.findOne({email: req.body.email, isDelete: false});
-      if(!admin){
-          return res.json({message:"Admin does not exist."});
-      }
-      let checkPassword = await bcrypt.compare(password, admin.password);
-      if(!checkPassword){
-          return res.json({message:"Invalid Password."});
-      }
-      let playload = {
-          userId: admin._id
-      }
-      let secretKey: string | undefined = process.env.SECRETE_KEY
-      if(playload && secretKey){
-          let token = Jwt.sign(playload, secretKey);
-          res.json({token, message: "login successfully"});
-      }
+export const loginAdmin = async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
+    let admin = await AdminModel.findOne({ email: email, isdelete: false });
+    console.log("Admin is :",admin);
+     
+    if (!admin) {
+      return res.status(404).json({ message: "Invalid Email or Password" }); 
+    }
+    let checkPassword = await bcrypt.compare(password, admin.password);
+    if (!checkPassword) {
+      return res.status(401).json({ message: "Invalid Password" });
+    }
+    let payload = {
+      adminId: admin._id
+    };
+    let secretKey: string | undefined = process.env.SECRET_KEY;
+    if (payload && secretKey) {
+      let token = Jwt.sign(payload, secretKey);
+      return res.json({ token, message: "Login successful" });
+    } 
   } catch (error) {
-  return ThrowError(response);
+    return ThrowError(response);
+  }
 }
-}
-
-
-
-
-
-
-// export const loginAdmin = async (req: Request, res: Response) => {
-//   try {
-//     const {email ,password } = req.body ;
-//     let admin = await AdminModel.findOne({ email: req.body.email ,isDelete : false });
-//     // console.log("admin is :", admin);
-
-//     if (!admin) {
-//       return res.status(404).json({  message: `Email Not Found....`});
-//     }
-
-//     let checkPassword = await bcrypt.compare(req.body.password, admin.password);
-
-//     if (!checkPassword) {
-//       return res.status(401).json({ message: `Password is Not Match....` });
-//     }
-
-//     let token: string = Jwt.sign({ adminId: admin._id }, "Admin");
-
-//     res.status(200).json({ token, message: `Login Successfully.` });
-//   } catch (error) {
-//     return ThrowError(response);
-//   }
-// };
