@@ -14,12 +14,13 @@ export const addNewProduct = async (req: Request, res: Response) => {
         }
         
         req.body.price = Number(req.body.price);
-        if (!req.files || req.files.length === 0) {
+        
+        if (!(req as any).files || (req as any).files.length === 0) {
             return res.status(400).json({ message: 'No 📁📁📁 files uploaded !!! ' });
         }
         
         const imagePath: string[] = [];
-        const files: any[] = req.files as any[];
+        const files: any[] = (req as any).files;
         files.forEach((file: any) => {
             const path = file.path;
             imagePath.push(path);

@@ -204,37 +204,37 @@ export const deleteAdmin = async (req: Request, res: Response) => {
 
 export const updatePassword = async (req: Request, res: Response) => {
   try {
-      let admin = await AdminModel.findById(req.query.adminId);
-      if (!admin) {
-          return res.json({ message: `Admin Not Found....Please try again..` });
-      }
-      let comparePassword = await bcrypt.compare(req.body.oldPassword, req.user.password);
-      let oldPassword = req.body.oldPassword;
-      if (!oldPassword) {
-          return res.json({ message: `Old Password 🔑 is not Found.. Please Try Again.` });
-      }
-      if (!comparePassword) {
-          return res.json({ message: `Old Password 🔑 is not match.. Please Try Again.` });
-      }
-      let newPassword: any = req.body.newPassword;
-      if (!newPassword) {
-          return res.json({ message: `New Password 🔑 is Not Found.` });
-      }
-      if (newPassword === oldPassword) {
-          return res.json({ message: `Old Password 🔑 and New Password Are Same Please Enter Diffrent Password.` });
-      }
-      let confirmPassword = req.body.confirmPassword;
-      if (!confirmPassword) {
-          return res.json({ message: `Confirm Password 🔑 is Not Found.` });
-      }
-      if (newPassword !== confirmPassword) {
-          return res.json({ message: `New Password 🔑 and Confirm  Password are not same.` });
-      }
-      let hashPassword = await bcrypt.hash(newPassword, 10);
-      admin = await AdminModel.findByIdAndUpdate(req.user._id, { password: hashPassword });
-      res.status(200).json({ message: 'Password 🔑 changed successfully🔑🔑🔑🔑' });
+    let admin: any = await AdminModel.findById(req.query.adminId);
+    if (!admin) {
+      return res.json({ message: `Admin Not Found....Please try again..` });
+    }
+    let comparePassword = await bcrypt.compare(req.body.oldPassword, admin.password); 
+    let oldPassword = req.body.oldPassword;
+    if (!oldPassword) {
+      return res.json({ message: `Old Password 🔑 is not Found.. Please Try Again.` });
+    }
+    if (!comparePassword) {
+      return res.json({ message: `Old Password 🔑 is not match.. Please Try Again.` });
+    }
+    let newPassword: any = req.body.newPassword;
+    if (!newPassword) {
+      return res.json({ message: `New Password 🔑 is Not Found.` });
+    }
+    if (newPassword === oldPassword) {
+      return res.json({ message: `Old Password 🔑 and New Password Are Same Please Enter Different Password.` });
+    }
+    let confirmPassword = req.body.confirmPassword;
+    if (!confirmPassword) {
+      return res.json({ message: `Confirm Password 🔑 is Not Found.` });
+    }
+    if (newPassword !== confirmPassword) {
+      return res.json({ message: `New Password 🔑 and Confirm Password are not same.` });
+    }
+    let hashPassword = await bcrypt.hash(newPassword, 10);
+    admin = await AdminModel.findByIdAndUpdate(admin._id, { password: hashPassword });
+    res.status(200).json({ message: 'Password 🔑 changed successfully🔑🔑🔑🔑' });
   } catch (error) {
-      console.log(error);
-      res.status(500).json({ message: `Internal Server Error..${console.error()}` });
+    console.log(error);
+    res.status(500).json({ message: `Internal Server Error..${console.error()}` });
   }
 }
