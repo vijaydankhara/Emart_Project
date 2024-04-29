@@ -183,7 +183,7 @@ export const loginUser = async (req: Request, res: Response) => {
       if (!user) {
         return res.status(404).json({ message: "User not found..." });
       }
-      user = await UserModel.findByIdAndUpdate(user._id, { isDelete: false });
+      user = await UserModel.findByIdAndUpdate(user._id, { isdelete: true });
       res.status(200).json({ user: user, message: `User Deleted Succesfully...` });
     } catch (error) {
       console.log(error);

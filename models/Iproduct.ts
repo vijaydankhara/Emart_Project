@@ -8,9 +8,7 @@ export interface IProduct {
   category: string;
   size: String[];
   color: String[];
-  userObj: mongoose.Schema.Types.ObjectId;
-  categoryObj: mongoose.Schema.Types.ObjectId;
-  subcategoryObj: mongoose.Schema.Types.ObjectId;
+  isdelete?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }

@@ -183,7 +183,7 @@ export const deleteAdmin = async (req: Request, res: Response) => {
     if (!admin) {
       return res.status(404).json({ message: "Admin not found..." });
     }
-    admin = await AdminModel.findByIdAndUpdate(admin._id, { isDelete: true });
+    admin = await AdminModel.findByIdAndUpdate(admin._id, { isdelete: true });
     res.status(200).json({ admin, message: `Admin Deleted Succesfully...` });
   } catch (error) {
     console.log(error);
