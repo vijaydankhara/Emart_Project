@@ -5,11 +5,15 @@ import { userVerifyToken } from "../../middleware/userVerifyToken";
 const whishlistRouter: Router = Router();
 
 
-// GET ALL PRODUCT
-whishlistRouter.get("/get-All-Product",userVerifyToken,whishlistController.addToWishlist);
+// ADD WISHLIST
+whishlistRouter.post("/add-whishlist",userVerifyToken,whishlistController.addToWishlist);
 
-// GET  PRODUCT
-// userwhishlistRouter.get("/get-Product",userVerifyToken,whishlistController.getProduct);
+// GET ALL WISHISH
+whishlistRouter.get("/get-All-wishlist",userVerifyToken,whishlistController.getAllWishlist);
+
+// DELETE WISHISH
+whishlistRouter.delete("/delete-wishlist",userVerifyToken,whishlistController.deleteWishlist);
+
 
 
 export default whishlistRouter;

@@ -6,7 +6,7 @@ const wishlistSchema = new mongoose.Schema<IWishlist>({
         type: Schema.Types.ObjectId,
         ref: 'users'
     },
-    product: {
+    cartItem: {
         type: Schema.Types.ObjectId,
         ref: 'products'
     },
