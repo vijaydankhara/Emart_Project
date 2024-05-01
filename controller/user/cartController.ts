@@ -69,7 +69,7 @@ export const getAllCart = async (req: Request, res: Response) => {
 
 
 
-// // GET CART
+//  GET CART
 export const getCart = async (req: Request, res: Response) => {
     try {
         let cartId = (req.query.cartId);
@@ -108,7 +108,7 @@ export const deleteCart = async (req: Request, res: Response) => {
             return res.status(404).json({ message: `No Cart Found with this ID`});
         }
         cart = await CartModel.findByIdAndUpdate(cart._id ,{isDelete: true});
-        console.log("cart is :",cart);
+        // console.log("cart is :",cart);
         
         res.status(200).json({message:`Cart Deleted Successfully......`}); 
     } catch (error) {
