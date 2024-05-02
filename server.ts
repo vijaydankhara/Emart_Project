@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import adminRouter from './routes/admin/adminRouter';
 import productRouter from './routes/admin/productRouter';
 import admincartRouter from './routes/admin/cartRouter';
+import adminorderRouter from './routes/admin/orderRouter';
 
 import userRouter from './routes/user/userRouter';
 import userproductRouter from './routes/user/productRouter'
@@ -23,7 +24,7 @@ server.use(express.urlencoded({ extended: true }));
 server.use('/api/admin',adminRouter);
 server.use('/api/admin',productRouter);
 server.use('/api/admin',admincartRouter);
-
+server.use('/api/admin',adminorderRouter);
 
 // ------------------------- USER API ---------------------------------------
 server.use('/api/users',userRouter);

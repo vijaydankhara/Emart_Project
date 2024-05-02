@@ -62,7 +62,39 @@ export const getAllOrder = async (req: Request, res: Response) => {
         }
         res.status(200).json(orders);
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: `Internal Server Error ${console.error()}`});
+        return ThrowError(res);
+    }
+};
+
+
+export const getOrder = async (req: Request, res: Response) => {
+    try {
+        let order = await orderModel.findById({_id: req.query.orderId, isDelete: false});
+        // console.log(order);
+        if (!order) {
+            res.status(404).json({ message: `Orders Not Found.....`});
+        }
+        res.status(200).json(order);
+    } catch (error) {
+        return ThrowError(res);
+    }
+};
+
+// Delete Order
+export const deleteOrder = async (req: Request, res: Response) => {
+    try {
+        let order = await orderModel.findOne({ _id: req.query.orderId, isDelete: false });
+        if (!order) {
+            return res.status(404).json({ message: `Order Not Found...` });
+        }
+        
+        order = await orderModel.findByIdAndUpdate(order._id, { isDelete: true });
+        if (!order) {
+            return res.status(404).json({ message: `Order Not Found...` });
+        }
+        
+        res.status(200).json({ order, message: `Order Deleted Successfully...` });
+    } catch (error) {
+        return ThrowError(res);
     }
 };
