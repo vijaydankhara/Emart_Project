@@ -10,6 +10,7 @@ import userRouter from './routes/user/userRouter';
 import userproductRouter from './routes/user/productRouter'
 import whishlistRouter from './routes/user/wishlistRouter';
 import cartRouter from './routes/user/cartRouter';
+import orderRouter from './routes/user/orderRouter';
 
 dotenv.config();
 const port : Number = Number(process.env.PORT);
@@ -21,14 +22,15 @@ server.use(express.urlencoded({ extended: true }));
 // ------------------------- ADMIN API ---------------------------------------
 server.use('/api/admin',adminRouter);
 server.use('/api/admin',productRouter);
-server.use('/api/admin',admincartRouter)
+server.use('/api/admin',admincartRouter);
 
 
 // ------------------------- USER API ---------------------------------------
 server.use('/api/users',userRouter);
 server.use('/api/user',userproductRouter);
 server.use('/api/user',whishlistRouter);
-server.use('/api/user',cartRouter)
+server.use('/api/user',cartRouter);
+server.use('/api/user',orderRouter);
 
 
 server.listen(port, async () => {
