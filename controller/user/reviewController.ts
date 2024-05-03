@@ -33,3 +33,48 @@ export const addReview = async (req: Request, res: Response) => {
         return ThrowError(res);
     }
 };
+
+// GET ALL REVIEW
+
+
+
+// Get Review by ID
+export const getReview = async(req: Request,res: Response) => {
+    try {
+        let review = await reviewModel.findById(req.query.Id);
+        if (!review) {
+            return res.status(404).json({ message: `Review ID not found!` });
+        }
+        res.status(200).json(review);
+    } catch (error) {
+        return ThrowError(res);
+    }
+};
+
+// Update Review
+export const updateReview = async(req: Request,res: Response) => {
+    try {
+        let review = await reviewModel.findById(req.query.Id);
+        if (!review) {
+            return res.status(404).json({ message: ` This Review does not exist!` });
+        }
+        review = await reviewModel.findByIdAndUpdate(review._id, { ...req.body});
+        res.status(200).json({review, message: ` Product Review Update Successfully....`});
+    } catch (error) {
+        return ThrowError(res);
+    }
+};
+
+// DELETE REVIEW
+export const deleteReview = async(req: Request,res: Response) => {
+    try {
+        let review = await reviewModel.findById(req.query.Id);
+        if(!review){
+            return res.status(404).json({Message: `Review is not found`});
+        }
+        review = await reviewModel.findByIdAndUpdate(review._id , {isDelete: true});
+        res.status(202).json({review , Message: `Review is Delete....`});
+    } catch (error) {
+        return ThrowError(res);
+    }
+}
