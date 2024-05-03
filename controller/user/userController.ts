@@ -238,3 +238,7 @@ export const loginUser = async (req: Request, res: Response) => {
         res.status(500).json({ message: `Internal Server Error..${console.error()}` });
     }
   }
+
+export function addReview(arg0: string, userVerifyToken: (req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: import("express").NextFunction) => Promise<Response<any, Record<string, any>> | undefined>, addReview: any) {
+    throw new Error("Function not implemented.");
+}

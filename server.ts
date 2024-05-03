@@ -13,6 +13,7 @@ import whishlistRouter from './routes/user/wishlistRouter';
 import cartRouter from './routes/user/cartRouter';
 import orderRouter from './routes/user/orderRouter';
 import contactRouter from './routes/user/contactRouter';
+import reviewRouter from './routes/user/reviewRouter';
 
 dotenv.config();
 const port : Number = Number(process.env.PORT);
@@ -33,7 +34,8 @@ server.use('/api/user',userproductRouter);
 server.use('/api/user',whishlistRouter);
 server.use('/api/user',cartRouter);
 server.use('/api/user',orderRouter);
-server.use('/api/user',contactRouter)
+server.use('/api/user',contactRouter);
+server.use('/api/user',reviewRouter);
 
 
 server.listen(port, async () => {
