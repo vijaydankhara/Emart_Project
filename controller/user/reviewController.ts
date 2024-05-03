@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 // ADD REVIEW
 export const addReview = async (req: Request, res: Response) => {
     try {
-        // Validate if productId is provided in the query
+
         const productId = req.query.productId;
         if (!productId) {
             return res.status(400).json({ Message: 'Product ID is required' });
@@ -35,6 +35,28 @@ export const addReview = async (req: Request, res: Response) => {
 };
 
 // GET ALL REVIEW
+
+export const getAllReview = async (req: Request, res: Response) => {
+    try {
+        let review = await reviewModel.find(req.query as any);
+        let product = req.query.productId && req.query.productId !== "" ? [
+            {
+                $match: { product: new mongoose.Types.ObjectId(req.query.productId as string) }
+            }
+        ] : [];
+        let find = [
+            { $match: { isDelete: false } },
+            ...product
+        ];
+        
+        let result = await reviewModel.aggregate(find);
+        res.status(200).json(result);
+        return result;
+    } catch (error) {
+        return ThrowError(res);
+    }
+}
+
 
 
 

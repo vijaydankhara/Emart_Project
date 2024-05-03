@@ -6,13 +6,7 @@ import { IUser } from "../../models/IUser";
 import { ThrowError } from "../../utils/ErrorUtils";
 
 
-/**
- * @usage : Register a admin,
- * @url :  http://localhost:1999/api/users/register-user
- * @param : firstName,lastName,gender,email,password,mobileNo
- * @method : POST
- * @access : PUBLIC
- */
+// REGISTER ADMIN
 export const registerAdmin = async (request: Request, response: Response) => {
   try {
     let { firstName, lastName, gender, email, password, mobileNo } =
@@ -49,16 +43,8 @@ export const registerAdmin = async (request: Request, response: Response) => {
   }
 };
 
-/**
- * @usage : Login  Admin,
- * @url : http://localhost:1999/api/admin/login-admin
- * @param : email, password
- * @method : POST
- * @access : PUBLIC
- */
 
-
-
+// LOGIN ADMIN
 export const loginAdmin = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
@@ -92,14 +78,7 @@ export const loginAdmin = async (req: Request, res: Response) => {
   }
 }
 
-/**
- * @usage : GET ALL ADMIN
- * @url : http://localhost:1999/api/admin/get-All-Admin
- * @param : adminVerifyToken
- * @method : POST
- * @access : PUBLIC
- */
-
+// GET ALL ADMINS
 export const getAllAdmin = async (req:Request, res:Response)=>{
   try {
     let admin = await AdminModel.find({
@@ -117,14 +96,8 @@ export const getAllAdmin = async (req:Request, res:Response)=>{
 }
 
 
-/**
- * @usage : GET SPESIFIC ADMIN
- * @url : http://localhost:1999/api/admin/get-Admin
- * @param : adminId, adminVerifyToken
- * @method : GET
- * @access : PUBLIC
- */
 
+// GET ADMIN
 export const getAdmin = async (req: Request, res: Response) => {
   try{
     const adminId = req.query.adminId; 
@@ -143,15 +116,8 @@ export const getAdmin = async (req: Request, res: Response) => {
   }
 }
 
-/**
- * @usage : GET SPESIFIC ADMIN
- * @url : http://localhost:1999/api/admin/
- * @param : adminId , adminVerifyToken
- * @method : PUT
- * @access : PUBLIC
- */
 
-
+// UPDATE ADMIN
 export const updateAdmin = async (req: Request, res: Response) => {
   try {
     let admin = await AdminModel.findById(req.query.adminId);
@@ -169,14 +135,7 @@ export const updateAdmin = async (req: Request, res: Response) => {
 };
 
 
-/**
- * @usage : DELETE
- * @url : http://localhost:1999/api/admin/delete-Admin
- * @param : adminId , adminVerifyToken
- * @method : DELETE
- * @access : PUBLIC
- */
-
+// DELETE ADMIN
 export const deleteAdmin = async (req: Request, res: Response) => {
   try {
     let admin = await AdminModel.findById(req.query.adminId);
@@ -193,15 +152,8 @@ export const deleteAdmin = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * @usage : UPDATE PASSWORD
- * @url : http://localhost:1999/api/admin/update-Password
- * @param : adminId ,Old Password,New Password adminVerifyToken,
- * @method : PUT
- * @access : PUBLIC
- */
 
-
+// UPDATE PASSWORD
 export const updatePassword = async (req: Request, res: Response) => {
   try {
     let admin: any = await AdminModel.findById(req.query.adminId);

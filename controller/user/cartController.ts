@@ -61,8 +61,7 @@ export const getAllCart = async (req: Request, res: Response) => {
 
         res.status(200).json(carts);
     } catch (error) {
-        console.error('Error occurred while fetching or processing cart items:', error);
-        res.status(500).json({ message: 'Internal Server Error.' });
+        return ThrowError(res);
     }
 };
 
@@ -94,8 +93,7 @@ export const updateCart = async (req: Request, res: Response) => {
         cart = await CartModel.findByIdAndUpdate(cart._id,{ ...req.body});
         res.status(200).json({ cart, message: `Cart Item Updated SuccessFully.....`});
     } catch (error) {
-        console.log(error);
-        res.status(401).json({ message: `Internal Server Error... ${console.error()}`});
+        return ThrowError(res);
     }
 };
 
@@ -112,7 +110,6 @@ export const deleteCart = async (req: Request, res: Response) => {
         
         res.status(200).json({message:`Cart Deleted Successfully......`}); 
     } catch (error) {
-        console.log(error);
-        res.status(401).json({ message: `Internal Server Error... ${console.error()}`});
+        return ThrowError(res);
     }
 };

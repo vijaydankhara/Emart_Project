@@ -4,6 +4,8 @@ import ProductModel from "../../schemas/admin/productSchema";
 import { IProduct } from "../../models/Iproduct";
 import { ThrowError } from "../../utils/ErrorUtils";
 
+
+// ADD NEW PRODUCT
 export const addNewProduct = async (req: Request, res: Response) => {
     try {
         let product = await ProductModel.findOne({ title: req.body.title, isDelete: false });

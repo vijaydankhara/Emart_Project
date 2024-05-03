@@ -3,6 +3,8 @@ import orderModel from '../../schemas/user/orderSchema';
 import { ThrowError } from '../../utils/ErrorUtils';
 import CartModel from '../../schemas/admin/cartSchema';
 
+
+// ADD NEW ORDER
 export const addNewOrder = async (req: Request, res: Response) => {
     try {
         const userCarts = req.query.me && req.query.me === 'true' ? [

@@ -2,13 +2,7 @@ import { Request, Response } from 'express';
 import contactModel from '../../schemas/user/contactSchema';
 import { ThrowError } from '../../utils/ErrorUtils';
 
-/**
- * @usage : SEND REQUEST USER
- * @url :  http://localhost:1999/api/user/send-Request-User
- * @param : firstName,email,mobileNo,message
- * @method : POST
- * @access : PUBLIC 
- */
+
 // SEND REQUEST USER
 export const sendRequestUser = async (req: Request, res: Response) => {
     try {

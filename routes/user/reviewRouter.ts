@@ -10,6 +10,8 @@ const reviewRouter: Router = Router();
 reviewRouter.post("/add-review",userVerifyToken,reviewController.addReview);
 
 // GET ALL REVIEW
+reviewRouter.get("/get-All-review",userVerifyToken,reviewController.getAllReview);
+
 
 // GET REVIEW
 reviewRouter.get("/get-review",userVerifyToken,reviewController.getReview);

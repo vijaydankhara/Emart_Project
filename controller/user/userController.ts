@@ -1,22 +1,14 @@
-import { Request,Response, response } from "express";
+import { Request,Response } from "express";
 import bcrypt from "bcrypt" 
 import Jwt  from "jsonwebtoken";
 import UserModel from "../../schemas/user/userSchema";
 import { IUser } from "../../models/IUser";
-
 import {ThrowError} from "../../utils/ErrorUtils"
-import { isJWT } from "validator";
 
 
 
 
-/**
- * @usage : Register a User,
- * @url :  http://localhost:1999/api/admin/register-admin
- * @param : firstName,lastName,gender,email,password,mobileNo
- * @method : POST
- * @access : PUBLIC 
- */
+// REGISTER USER
 export const registerUser = async (request:Request,response:Response) =>{
     try {
         let {firstName,lastName,gender,email,password,mobileNo} = request.body;
@@ -49,16 +41,7 @@ export const registerUser = async (request:Request,response:Response) =>{
     }
 };
 
-/**
- * @usage : Login  User,
- * @url : http://localhost:1999/api/admin/login-admin
- * @param : email, password
- * @method : POST
- * @access : PUBLIC
- */
-
-
-
+// LOGIN USER
 export const loginUser = async (req: Request, res: Response) => {
     try {
       const { email, password } = req.body;
@@ -86,18 +69,12 @@ export const loginUser = async (req: Request, res: Response) => {
         return res.status(200).json({ token, message: "Login successful" });
       }
     } catch (error) {
-      return ThrowError(response);
+      return ThrowError(res);
     }
   }
   
-  /**
-   * @usage : GET ALL user
-   * @url : http://localhost:1999/api/admin/get-All-Admin
-   * @param : adminVerifyToken
-   * @method : POST
-   * @access : PUBLIC
-   */
-  
+ 
+  // GET ALL USER
   export const getAllUser = async (req:Request, res:Response)=>{
     try {
       let user = await UserModel.find({
@@ -110,19 +87,12 @@ export const loginUser = async (req: Request, res: Response) => {
       }
       res.status(200).json(user);
     } catch (error) {
-      return ThrowError(response);
+      return ThrowError(res);
     }
   }
   
   
-  /**
-   * @usage : GET SPESIFIC USER
-   * @url : http://localhost:1999/api/admin/get-Admin
-   * @param : adminId, adminVerifyToken
-   * @method : GET
-   * @access : PUBLIC
-   */
-  
+   // GET SPESIFIC USER
   export const getUser = async (req: Request, res: Response) => {
     try{
       const userId = req.query.userId; 
@@ -137,19 +107,11 @@ export const loginUser = async (req: Request, res: Response) => {
       }
       res.status(200).json(user);
     } catch (error) {
-      return ThrowError(response);
+      return ThrowError(res);
     }
   }
   
-  /**
-   * @usage : GET SPESIFIC USER
-   * @url : http://localhost:1999/api/admin/
-   * @param : adminId , adminVerifyToken
-   * @method : PUT
-   * @access : PUBLIC
-   */
-  
-  
+  //UPDATE USER
   export const updateUser = async (req: Request, res: Response) => {
     try {
       let user = await UserModel.findById(req.query.userId);
@@ -161,22 +123,12 @@ export const loginUser = async (req: Request, res: Response) => {
       user = await UserModel.findByIdAndUpdate(user._id, { ...req.body });
       res.status(201).json({ user: user, message: `User Updated Successfully...` });
     } catch (error) {
-      console.log(error);
-      res
-        .status(500)
-        .json({ message: `Internal Server Error..${console.error()}` });
+      return ThrowError(res);
     }
   };
   
   
-  /**
-   * @usage : DELETE USER
-   * @url : http://localhost:1999/api/admin/delete-Admin
-   * @param : adminId , adminVerifyToken
-   * @method : DELETE
-   * @access : PUBLIC
-   */
-  
+  // DELETE USER
   export const deleteUser = async (req: Request, res: Response) => {
     try {
       let user = await UserModel.findById(req.query.userId);
@@ -186,22 +138,12 @@ export const loginUser = async (req: Request, res: Response) => {
       user = await UserModel.findByIdAndUpdate(user._id, { isdelete: true });
       res.status(200).json({ user: user, message: `User Deleted Succesfully...` });
     } catch (error) {
-      console.log(error);
-      res
-        .status(500)
-        .json({ message: `Internal Server Error..${console.error()}` });
+      return ThrowError(res);
     }
   };
   
-  /**
-   * @usage : UPDATE PASSWORD
-   * @url : http://localhost:1999/api/admin/update-Password
-   * @param : adminId ,Old Password,New Password adminVerifyToken,
-   * @method : PUT
-   * @access : PUBLIC
-   */
-  
-  
+
+  // UPDATE PASSWORD
   export const updatePassword = async (req: Request, res: Response) => {
     try {
         let user = await UserModel.findById(req.query.userId);
@@ -233,12 +175,8 @@ export const loginUser = async (req: Request, res: Response) => {
         let hashPassword = await bcrypt.hash(newPassword, 10);
         user = await UserModel.findByIdAndUpdate(req.user._id, { password: hashPassword });
         res.status(200).json({ message: 'Password 🔑 changed successfully🔑🔑🔑🔑' });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: `Internal Server Error..${console.error()}` });
-    }
+      } catch (error) {
+        return ThrowError(res);
+      }
   }
 
-export function addReview(arg0: string, userVerifyToken: (req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: import("express").NextFunction) => Promise<Response<any, Record<string, any>> | undefined>, addReview: any) {
-    throw new Error("Function not implemented.");
-}
