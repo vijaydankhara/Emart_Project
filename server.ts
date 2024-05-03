@@ -42,7 +42,7 @@ server.use('/api/user',orderRouter);
 server.use('/api/user',contactRouter);
 server.use('/api/user',reviewRouter);
 
-
+// DATABASE CONNECTION  
 server.listen(port, async () => {
     mongoose.connect(dbURL)  // online databases connected
     .then(() => console.log('DB Is Connected ✔︎✔︎✔︎'))
